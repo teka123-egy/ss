@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نسخ المبلغ</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .container {
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .amount {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="amount" id="amount">هنا يظهر المبلغ المطلوب</div>
+        <button onclick="copyToClipboard()">نسخ المبلغ</button>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            const amountText = document.getElementById('amount').innerText;
+            navigator.clipboard.writeText(amountText).then(() => {
+                alert('تم نسخ المبلغ إلى الحافظة!');
+            }, (err) => {
+                console.error('فشل في نسخ النص: ', err);
+            });
+        }
+
+        // يمكنك الحصول على المبلغ من استعلام URL أو أي وسيلة أخرى
+        const urlParams = new URLSearchParams(window.location.search);
+        const amount = urlParams.get('amount');
+        if (amount) {
+            document.getElementById('amount').innerText = amount;
+        }
+    </script>
+</body>
+</html>
